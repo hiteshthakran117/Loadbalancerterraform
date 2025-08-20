@@ -1,16 +1,12 @@
-# VPC module
-module "vpc_module" {
-  source = "./vpc"
-}
-
-# EC2 module
-module "ec2_module" {
-  source = "./ec2"
-}
-
-# Load Balancer module
-module "loadbalancer_module" {
-  source  = "./load"
-  subnets = [ module.vpc_module.subnet_id, module.vpc_module.subnet_id02 ]
+resource "aws_lb" "myLoadbalancer" {
+  name = "myfiresTApplicationLB" 
+  internal = false 
+  load_balancer_type = "application" 
+  
+  #subnet_id = var.subnets 
+  enable_deletion_protection = false
+  tags = {
+    Name = var.namelb 
+  }
 }
 
